@@ -29,6 +29,18 @@ public class GameBuilder {
         return this;
     }
 
+    public static GameBuilder initialBoard() {
+        return new GameBuilder().rows(
+                " n n n n",
+                "n n n n ",
+                " n n n n",
+                "        ",
+                "        ",
+                "b b b b ",
+                " b b b b",
+                "b b b b ");
+    }
+
     private Color getColor(char color) {
         switch (color) {
             case 'b':
