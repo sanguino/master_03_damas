@@ -3,17 +3,14 @@ package usantatecla.draughts.models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Coordinate {
+public class Coordinate extends usantatecla.draughts.utils.Coordinate {
 
-    private int row;
-    private int column;
     private static final int LOWER_LIMIT = 0;
     private static final int UPPER_LIMIT = 7;
     private static final int DIMENSION = UPPER_LIMIT + 1;
 
     public Coordinate(int row, int column) {
-        this.row = row;
-        this.column = column;
+        super(row, column);
     }
 
     public static Coordinate getInstance(String format) {
@@ -36,13 +33,6 @@ public class Coordinate {
                 && column <= Coordinate.UPPER_LIMIT;
     }
 
-    private Coordinate substract(Coordinate coordinate) {
-        return new Coordinate(this.row - coordinate.row, this.column - coordinate.column);
-    }
-
-    private Coordinate plus(Coordinate coordinate) {
-        return new Coordinate(this.row + coordinate.row, this.column + coordinate.column);
-    }
 
     Direction getDirection(Coordinate coordinate) {
         assert coordinate != null;
@@ -84,10 +74,6 @@ public class Coordinate {
         return diagonalCoordinates;
     }
 
-    boolean isBlack() {
-        return (this.row + this.column) % 2 != 0;
-    }
-
     public boolean isLast() {
         return this.row == Coordinate.UPPER_LIMIT;
     }
@@ -96,46 +82,10 @@ public class Coordinate {
         return this.row == Coordinate.LOWER_LIMIT;
     }
 
-    int getRow() {
-        return this.row;
-    }
 
-    int getColumn() {
-        return this.column;
-    }
 
     public static int getDimension() {
         return Coordinate.DIMENSION;
-    }
-
-    @Override
-    public String toString() {
-        return "(" + row + ", " + column + ")";
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + column;
-        result = prime * result + row;
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Coordinate other = (Coordinate) obj;
-        if (column != other.column)
-            return false;
-        if (row != other.row)
-            return false;
-        return true;
     }
 
 }
