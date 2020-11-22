@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.when;
 
-public class ColorTest {
+public class ColorTestDG {
 
     @Mock
     private Coordinate coordinate;

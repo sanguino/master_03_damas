@@ -62,12 +62,6 @@ public class Coordinate {
         return Math.abs(this.substract(coordinate).getRow());
     }
 
-    Coordinate getBetweenDiagonalCoordinate(Coordinate coordinate) {
-        assert this.getDiagonalDistance(coordinate) == 2;
-        final Direction direction = this.getDirection(coordinate);
-        return this.plus(direction.getDistanceCoordinate(1));
-    }
-
     List<Coordinate> getBetweenDiagonalCoordinates(Coordinate coordinate) {
         assert this.isOnDiagonal(coordinate);
         List<Coordinate> coordinates = new ArrayList<Coordinate>();
