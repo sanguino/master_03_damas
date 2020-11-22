@@ -9,8 +9,7 @@ import org.junit.runners.Suite.SuiteClasses;
         GameViewTestDG.class,
         PlayViewTestDG.class,
         ResumeViewTestDG.class,
-        StartViewTestDG.class,
-        ViewTestDG.class
+        StartViewTestDG.class
 })
 public class AllViewTestsDG {
 }

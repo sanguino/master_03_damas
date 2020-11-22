@@ -20,7 +20,7 @@ public class PlayViewTest {
     @Mock
     Console console;
     @InjectMocks
-    PlayView playView;
+    View view;
 
     @Before
     public void initMocks() {
@@ -31,7 +31,7 @@ public class PlayViewTest {
     public void givenPlayViewWhenInteractEmptyThenError() {
         when(this.playController.getColor()).thenReturn(Color.BLACK);
         when(this.console.readString(ArgumentMatchers.any())).thenReturn("").thenReturn("-1");
-        this.playView.interact(this.playController);
+        this.view.visit(this.playController);
         verify(this.console).writeln("Error!!! Formato incorrecto");
     }
 
@@ -39,7 +39,7 @@ public class PlayViewTest {
     public void givenPlayViewWhenInteractBadFormatThenError() {
         when(this.playController.getColor()).thenReturn(Color.BLACK);
         when(this.console.readString(ArgumentMatchers.any())).thenReturn("B2.A1").thenReturn("-1");
-        this.playView.interact(this.playController);
+        this.view.visit(this.playController);
         verify(this.console).writeln("Error!!! Formato incorrecto");
     }
 
@@ -47,7 +47,7 @@ public class PlayViewTest {
     public void givenPlayViewWhenInteractDimensionExceedThenError() {
         when(this.playController.getColor()).thenReturn(Color.BLACK);
         when(this.console.readString(ArgumentMatchers.any())).thenReturn("92.01").thenReturn("-1");
-        this.playView.interact(this.playController);
+        this.view.visit(this.playController);
         verify(this.console).writeln("Error!!! Formato incorrecto");
     }
 
@@ -56,7 +56,7 @@ public class PlayViewTest {
         when(this.playController.getColor()).thenReturn(Color.BLACK);
         when(this.playController.isBlocked()).thenReturn(true);
         when(this.console.readString(ArgumentMatchers.any())).thenReturn("11.22");
-        this.playView.interact(this.playController);
+        this.view.visit(this.playController);
         verify(this.console).writeln("Derrota!!! No puedes mover tus fichas!!!");
     }
 
@@ -64,7 +64,7 @@ public class PlayViewTest {
     public void givenPlayViewWhenInteractMinusOneThenCancel() {
         when(this.playController.getColor()).thenReturn(Color.BLACK);
         when(this.console.readString(ArgumentMatchers.any())).thenReturn("-1");
-        this.playView.interact(this.playController);
+        this.view.visit(this.playController);
         verify(this.playController).cancel();
     }
 
@@ -72,7 +72,7 @@ public class PlayViewTest {
     public void givenPlayViewWhenInteractCorrectlyThenMoveCalled() {
         when(this.playController.getColor()).thenReturn(Color.BLACK);
         when(this.console.readString(ArgumentMatchers.any())).thenReturn("12.34");
-        this.playView.interact(this.playController);
+        this.view.visit(this.playController);
         verify(this.playController).move(
                 new Coordinate(0,1),
                 new Coordinate(2,3)
@@ -84,7 +84,7 @@ public class PlayViewTest {
     public void givenPlayViewWhenInteractCorrectlyMultipleThenMoveCalled() {
         when(this.playController.getColor()).thenReturn(Color.BLACK);
         when(this.console.readString(ArgumentMatchers.any())).thenReturn("12.34.56.78");
-        this.playView.interact(this.playController);
+        this.view.visit(this.playController);
         verify(this.playController).move(
                 new Coordinate(0,1),
                 new Coordinate(2,3),

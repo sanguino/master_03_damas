@@ -3,24 +3,29 @@ package usantatecla.draughts.views;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import usantatecla.draughts.controllers.PlayController;
 import usantatecla.draughts.models.Coordinate;
 import usantatecla.draughts.models.Game;
 import usantatecla.draughts.models.State;
+import usantatecla.draughts.utils.Console;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-public class PlayViewTestDG extends SubViewTestDG {
+public class PlayViewTestDG {
 
     private static final String ERROR_MESSAGE = "Error!!! Formato incorrecto";
     private static final String LOST_MESSAGE = "Derrota!!! No puedes mover tus fichas!!!";
 
     private PlayController playController;
 
+    @Mock
+    protected Console console;
+
     @InjectMocks
-    private PlayView playView;
+    private View view;
 
     @Before
     public void beforeGameView() {
@@ -34,7 +39,7 @@ public class PlayViewTestDG extends SubViewTestDG {
         when(console.readString(anyString())).thenReturn(getCoordinates("-1"));
         doNothing().when(playController).cancel();
 
-        playView.interact(playController);
+        view.interact(playController);
         verify(playController).cancel();
 
     }
@@ -55,7 +60,7 @@ public class PlayViewTestDG extends SubViewTestDG {
         doReturn(noError()).when(playController).move(any(Coordinate.class), any(Coordinate.class));
         when(playController.isBlocked()).thenReturn(false);
 
-        playView.interact(playController);
+        view.interact(playController);
 
         verify(console, times(7)).writeln(eq(ERROR_MESSAGE));
         verify(console, never()).writeln(eq(LOST_MESSAGE));
@@ -68,7 +73,7 @@ public class PlayViewTestDG extends SubViewTestDG {
         doReturn(noError()).when(playController).move(any(Coordinate.class), any(Coordinate.class));
         when(playController.isBlocked()).thenReturn(true);
 
-        playView.interact(playController);
+        view.interact(playController);
         verify(console).writeln(eq(LOST_MESSAGE));
 
     }
@@ -80,7 +85,7 @@ public class PlayViewTestDG extends SubViewTestDG {
         doReturn(noError()).when(playController).move(any(Coordinate.class), any(Coordinate.class));
         when(playController.isBlocked()).thenReturn(false);
 
-        playView.interact(playController);
+        view.interact(playController);
         verify(console, never()).writeln(eq(LOST_MESSAGE));
 
     }
@@ -92,7 +97,7 @@ public class PlayViewTestDG extends SubViewTestDG {
         doReturn(noError()).when(playController).move(any(Coordinate.class), any(Coordinate.class), any(Coordinate.class));
         when(playController.isBlocked()).thenReturn(false);
 
-        playView.interact(playController);
+        view.interact(playController);
         verify(console, never()).writeln(eq(LOST_MESSAGE));
 
     }

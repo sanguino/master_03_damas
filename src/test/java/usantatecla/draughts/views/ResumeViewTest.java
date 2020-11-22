@@ -15,7 +15,7 @@ public class ResumeViewTest {
     @Mock
     YesNoDialog yesNoDialog;
     @InjectMocks
-    ResumeView resumeView;
+    View view;
 
     @Before
     public void initMocks() {
@@ -25,14 +25,14 @@ public class ResumeViewTest {
     @Test
     public void givenResumeViewWhenInteractYesThenReset () {
         when(this.yesNoDialog.read(ArgumentMatchers.any())).thenReturn(true);
-        this.resumeView.interact(this.resumeController);
+        this.view.visit(this.resumeController);
         verify(this.resumeController).reset();
     }
 
     @Test
     public void givenResumeViewWhenInteractYesThenNext () {
         when(this.yesNoDialog.read(ArgumentMatchers.any())).thenReturn(false);
-        this.resumeView.interact(this.resumeController);
+        this.view.visit(this.resumeController);
         verify(this.resumeController).next();
     }
 

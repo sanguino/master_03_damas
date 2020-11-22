@@ -20,7 +20,7 @@ public class GameViewTest {
     @Mock
     Console console;
     @InjectMocks
-    GameView gameView;
+    View view;
     @Captor
     ArgumentCaptor<String> argument;
 
@@ -33,7 +33,7 @@ public class GameViewTest {
     public void testGivenGameViewWhenInteractThenOk() {
         Game game = new GameBuilder().initialBoard().build();
         StartController startController = new StartController(game, new State());
-        this.gameView.write(startController);
+        this.view.write(startController);
         verify(this.console, atLeastOnce()).write(this.argument.capture());
         List<String> board = Arrays.asList(
                 " 12345678",

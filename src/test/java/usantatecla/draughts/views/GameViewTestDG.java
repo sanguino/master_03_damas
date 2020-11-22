@@ -17,7 +17,7 @@ import java.io.PrintStream;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.spy;
 
-public class GameViewTestDG extends SubViewTestDG {
+public class GameViewTestDG {
 
     private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -28,7 +28,7 @@ public class GameViewTestDG extends SubViewTestDG {
     private Console console;
 
     @InjectMocks
-    private GameView gameView;
+    private View view;
 
     @Before
     public void beforeGameView() {
@@ -60,7 +60,7 @@ public class GameViewTestDG extends SubViewTestDG {
                 " 12345678\n";
         //@formatted:on
 
-        gameView.write(startController);
+        view.write(startController);
         assertEquals(board, outputStreamCaptor.toString());
     }
 }

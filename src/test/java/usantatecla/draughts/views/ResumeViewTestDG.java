@@ -1,16 +1,19 @@
 package usantatecla.draughts.views;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import usantatecla.draughts.controllers.ResumeController;
+import usantatecla.draughts.utils.Console;
 import usantatecla.draughts.utils.YesNoDialog;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class ResumeViewTestDG extends SubViewTestDG {
+public class ResumeViewTestDG {
 
     @Mock
     private YesNoDialog yesNoDialog;
@@ -19,13 +22,19 @@ public class ResumeViewTestDG extends SubViewTestDG {
     private ResumeController resumeController;
 
     @InjectMocks
-    private ResumeView resumeView;
+    private View view;
+
+    @Before
+    public void initMocks() {
+        MockitoAnnotations.initMocks(this);
+    }
+
 
     @Test
     public void testResetGame() {
 
         when(this.yesNoDialog.read(anyString())).thenReturn(true);
-        resumeView.interact(resumeController);
+        view.visit(resumeController);
         verify(resumeController).reset();
 
     }
@@ -34,7 +43,7 @@ public class ResumeViewTestDG extends SubViewTestDG {
     public void testFinishGame() {
 
         when(this.yesNoDialog.read(anyString())).thenReturn(false);
-        resumeView.interact(resumeController);
+        view.visit(resumeController);
         verify(resumeController).next();
 
     }

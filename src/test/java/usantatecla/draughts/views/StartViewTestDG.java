@@ -5,38 +5,34 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import usantatecla.draughts.controllers.StartController;
+import usantatecla.draughts.utils.Console;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class StartViewTestDG extends SubViewTestDG {
-
-    private static final String TITTLE = "Draughts";
+public class StartViewTestDG {
 
     @Mock
     private StartController startController;
 
     @Mock
-    private GameView gameView;
+    protected Console console;
 
     @InjectMocks
-    private StartView startView;
+    private View view;
 
     @Before
     public void before() {
         initMocks(this);
-        this.startView = spy(this.startView);
     }
 
     @Test
     public void test1() {
 
-        when(startView.createGameView()).thenReturn(gameView);
-        startView.interact(startController);
+        view.visit(startController);
 
-        verify(console).writeln(eq(TITTLE));
-        verify(gameView).write(eq(startController));
+        verify(console).writeln(eq("Draughts"));
         verify(startController).start();
 
     }
