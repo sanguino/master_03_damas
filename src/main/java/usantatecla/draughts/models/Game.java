@@ -57,15 +57,12 @@ public class Game {
 
         PairMoveChecker checker = new EmptyOriginChecker(board, turn);
         checker.linkWith(new OppositePieceChecker(board, turn))
-                .linkWith(new NotEmptyChecker(board, turn));
+                .linkWith(new NotEmptyChecker(board, turn))
+                .linkWith(new CorrectMovementChecker(board, turn));
 
-        Error error = checker.check(pair, coordinates);
-        if (error != null)
-            return error;
 
-        List<Piece> betweenDiagonalPieces =
-                this.board.getBetweenDiagonalPieces(coordinates[pair], coordinates[pair + 1]);
-        return this.board.getPiece(coordinates[pair]).isCorrectMovement(betweenDiagonalPieces, pair, coordinates);
+
+        return checker.check(pair, coordinates);
     }
 
     private void pairMove(List<Coordinate> removedCoordinates, int pair, Coordinate... coordinates) {
